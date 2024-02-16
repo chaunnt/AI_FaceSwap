@@ -39,7 +39,7 @@ If your PC does not support GPU, please set the **execution-provider** mode to *
 --max-memory 16 \
 ```
 
-#4. Running on Windows OS
+# 4. Running on Windows OS
 - Install [Xming](https://sourceforge.net/projects/xming/) software additionally to support screen exporting from the container.
 - After installing Xming, please start Xlaunch first. Check the DISPLAY ID and DISPLAY PORT in the Xlaunch software.
 - Set them in the run_app.sh file and start the container.
