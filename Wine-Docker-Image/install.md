@@ -34,9 +34,31 @@ wine64 build_winapp/python/python.exe -m pip install -r requirements.txt
 ```
 cp -f ffmpeg.exe ffplay.exe ffprobe.exe /root/.wine64/drive_c/windows
 ```
-# Build .exe file with PyInstaller
+# Build .exe file with PyInstaller in Windows
 ```
 wine py -m PyInstaller -D -w --console run.py --add-data "models/*;models"
 cp /mnt/build_winapp/python/Lib/site-packages/onnxruntime/capi/onnxruntime_providers_shared.dll dist/run/_internal/onnxruntime/capi/
 cp -f modules/ui.json /mnt/dist/run/_internal/modules/
 ```
+# Build .pkg file with PyInstaller in Linux
+1. Run PyInstaller to create run.spec
+    ```
+    sudo bash run.env
+    # In container
+    python3 -m PyInstaller -D -w --console run.py
+    ```
+2. Modify run.spec to copy data file to target package (including AI models)
+    ```
+    datas=[('/Deep-Face/models', 'models'), ('/Deep-Face/gfpgan', 'gfpgan'), ('/Deep-Face/modules', 'modules')],
+    hiddenimports=["PIL._tkinter_finder"],
+    ```
+3. Copy onnxruntime libs to package
+   ```
+   cd /usr/local/lib/python3.10/dist-packages/onnxruntime/capi/
+   cp -f libonnxruntime_providers_cuda.so libonnxruntime_providers_shared.so libonnxruntime_providers_tensorrt.so /Deep-Face/dist/run/_internal/onnxruntime/capi/
+   cp -rf /usr/local/lib/python3.10/dist-packages/insightface/ /Deep-Face/dist/run/_internal/
+   # (Optional)
+   cp -rf /usr/local/lib/python3.10/dist-packages/gfpgan /Deep-Face/dist/run/_internal/
+   cp -rf /usr/local/lib/python3.10/dist-packages/basicsr /Deep-Face/dist/run/_internal/
+   cp -f /usr/local/lib/python3.10/dist-packages/torchvision/transforms/functional_tensor.py /Deep-Face/dist/run/_internal/torchvision/transforms/
+   ```

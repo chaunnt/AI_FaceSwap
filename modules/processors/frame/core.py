@@ -19,12 +19,15 @@ FRAME_PROCESSORS_INTERFACE = [
 
 
 def load_frame_processor_module(frame_processor: str) -> Any:
+    print(f"Loading {frame_processor}")
     try:
         frame_processor_module = importlib.import_module(f'modules.processors.frame.{frame_processor}')
         for method_name in FRAME_PROCESSORS_INTERFACE:
             if not hasattr(frame_processor_module, method_name):
+                print('Error')
                 sys.exit()
-    except ImportError:
+    except ImportError as e:
+        print("Import Error", e)
         sys.exit()
     return frame_processor_module
 

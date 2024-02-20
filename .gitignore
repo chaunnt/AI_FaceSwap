@@ -24,3 +24,5 @@ build_winapp/*
 data_demo
 data_test
 DeepFaceApp
+build/
+dist/
