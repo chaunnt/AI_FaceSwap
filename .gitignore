@@ -23,6 +23,6 @@ models/DMDNet.pth
 build_winapp/*
 data_demo
 data_test
-DeepFaceApp
+DeepFaceApp*
 build/
 dist/
