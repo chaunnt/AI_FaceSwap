@@ -5,7 +5,7 @@ a = Analysis(
     ['run.py'],
     pathex=[],
     binaries=[],
-    datas=[('/Deep-Face/models', 'models'), ('/Deep-Face/gfpgan', 'gfpgan'), ('/Deep-Face/modules', 'modules')],
+    datas=[('models', 'models'), ('gfpgan', 'gfpgan'), ('modules', 'modules')],
     hiddenimports=["PIL._tkinter_finder", "gfpgan", "basicsr"],
     hookspath=[],
     hooksconfig={},

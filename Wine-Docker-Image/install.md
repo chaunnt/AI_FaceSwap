@@ -37,8 +37,14 @@ cp -f ffmpeg.exe ffplay.exe ffprobe.exe /root/.wine64/drive_c/windows
 # Build .exe file with PyInstaller in Windows
 ```
 wine py -m PyInstaller -D -w --console run.py --add-data "models/*;models"
-cp /mnt/build_winapp/python/Lib/site-packages/onnxruntime/capi/onnxruntime_providers_shared.dll dist/run/_internal/onnxruntime/capi/
-cp -f modules/ui.json /mnt/dist/run/_internal/modules/
+# Copy external package
+cp -f /mnt/build_winapp/python/Lib/site-packages/onnxruntime/capi/onnxruntime_providers_*.dll /mnt/dist/run/_internal/onnxruntime/capi/
+cp -f /mnt/build_winapp/python/Lib/site-packages/onnxruntime/capi/DirectML.dll /mnt/dist/run/_internal/onnxruntime/capi/
+cp -r /mnt/modules/ /mnt/dist/run/_internal/
+cp -rf /mnt/build_winapp/python/Lib/site-packages/basicsr/ /mnt/dist/run/_internal/
+cp -rf /mnt/build_winapp/python/Lib/site-packages/insightface/ /mnt/dist/run/_internal/
+cp -rf /mnt/build_winapp/python/Lib/site-packages/gfpgan/ /mnt/dist/run/_internal/
+cp -f /mnt/build_winapp/python/Lib/site-packages/torchvision/transforms/functional_tensor.py /mnt/dist/run/_internal/torchvision/transforms/
 ```
 # Build .pkg file with PyInstaller in Linux
 1. Run PyInstaller to create run.spec
